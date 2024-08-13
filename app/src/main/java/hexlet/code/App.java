@@ -7,11 +7,10 @@ import static java.lang.System.exit;
 
 public class App implements Runnable {
     @Option(names = {"-h", "--help"}, description = "Usage: gendiff [-hV].")
-    private boolean helpOption;
-// test
+    private boolean helpOption = false;
+
     public static void main(String[] args) {
-        CommandLine.run(new App(), args);
-        System.out.println("Hello World!");
+        new CommandLine(new App()).execute(args);
     }
     @Override
     public void run() {
