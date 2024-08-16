@@ -1,28 +1,1 @@
-
-package hexlet.code;
-
-import picocli.CommandLine;
-import picocli.CommandLine.Option;
-import static java.lang.System.exit;
-
-public class App implements Runnable {
-    @Option(names = {"-h", "--help"}, description = "Usage: gendiff [-hV].")
-    private boolean helpOption = false;
-
-    public static void main(String[] args) {
-        new CommandLine(new App()).execute(args);
-    }
-    @Override
-    public void run() {
-        if (helpOption) {
-            System.out.println("Usage: gendiff [-hV] [-f=format] filepath1 filepath2\n"
-                  + "Compares two configuration files and shows a difference.\n"
-                  + "      filepath1         path to first file\n"
-                  + "      filepath2         path to second file\n"
-                  + "  -f, --format=format   output format [default: stylish]\n"
-                  + "  -h, --help      Show this help message and exit.\n"
-                  + "  -V, --version   Print version information and exit.\n");
-            exit(0);
-        }
-    }
-}
+// Main App modulpackage hexlet.code;import picocli.CommandLine;import picocli.CommandLine.Command;import picocli.CommandLine.Option;import picocli.CommandLine.Parameters;import java.util.concurrent.Callable;@Command(name = "@|fg(green)gendiff|@", mixinStandardHelpOptions = true, version = "gendiff 0.0",                description = "Compares two configuration files and shows a difference.")public class App implements Callable<Integer> {    @Option(names = {"-h", "--help"}, description = "Usage: @|fg(green) gendiff [-h] |@ .")    private boolean helpOption = false;    @Option(names = {"-f", "--format"}, description = "Output format @|fg(white) [default JSON] |@ ", defaultValue = "JSON")    private String format;    @Parameters(index = "0", description = "The path of the first file",  paramLabel = "pathFile1")    private String pathFile1;    @Parameters(index = "1", description = "The path of the second file", paramLabel = "pathFile2")    private String pathFile2;    @Override    public Integer call() throws Exception {        String result = Differ.generate(pathFile1, pathFile2, format);        System.out.println(result);        if (helpOption) {            System.out.println("Usage: gendiff [-hV] [-f=format] filepath1 filepath2\n"                    + "Compares two configuration files and shows a difference.\n"                    + "      filepath1         path to first file\n"                    + "      filepath2         path to second file\n"                    + "  -f, --format=format   output format [default: stylish]\n"                    + "  -h, --help      Show this help message and exit.\n"                    + "  -V, --version   Print version information and exit.\n");        }        return 0;    }    public static void main(String[] args) throws Exception {        int exitCode = new CommandLine(new App()).execute(args);        System.exit(exitCode);    }}
