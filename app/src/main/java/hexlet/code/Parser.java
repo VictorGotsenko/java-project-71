@@ -10,7 +10,7 @@ public class Parser {
 
     public static Map<String, Object> parsingFile(String rawData, String typeData) throws Exception {
 
-        Map<String, Object> result = new TreeMap<>();
+        Map<String, Object> result;
         ObjectMapper mapper = new ObjectMapper(); // create once, reuse
         if (typeData.equalsIgnoreCase("JSON")) {
             result = mapper.readValue(rawData, new TypeReference<>() {
