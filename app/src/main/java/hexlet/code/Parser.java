@@ -15,7 +15,6 @@ public class Parser {
         if (typeData.equalsIgnoreCase("JSON")) {
             result = mapper.readValue(rawData, new TypeReference<>() {
             });
-//            System.out.println("!");
         } else {
             throw new RuntimeException("Unknown format");
         }
