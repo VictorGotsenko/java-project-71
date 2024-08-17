@@ -116,16 +116,5 @@ public class Differ {
 
         return result;
     }
-
-    // Convert Map<> to String
-    public static String convertWithStream(Map<String, String> map) {
-        String mapAsString = map.keySet().stream()
-                .map(key -> key + ": " + map.get(key))
-                .collect(Collectors.joining(", \n", "{\n", "\n}"));
-        return mapAsString;
-    }
-
-
-
 }
 
