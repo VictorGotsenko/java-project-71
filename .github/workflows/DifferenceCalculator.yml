@@ -25,7 +25,12 @@ jobs:
           gradle-version: 8.7
     
     - name: Build with Gradle Wrapper
-      run: make build
+      uses: austenstone/job-summary@v2.0
+        id: job-summary
+        with:
+          create-pdf: false
+      - run: echo "${{ steps.job-summary.outputs.job-summary }}"
+      - run: make build
 
     - name: Checking style with Gradle
       run: make lint
