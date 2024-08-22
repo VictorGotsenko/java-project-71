@@ -63,56 +63,7 @@ public class Differ {
 //        Convert Map -> String
         result = diffMap.keySet().stream()
                 .map(key -> key + ": " + diffMap.get(key))
-                .collect(Collectors.joining(", \n", "{\n", "\n}"));
-
-
-/*
-        for (Map.Entry<String, Object> m01 : dict01.entrySet()) {
-            String forModifyKey;
-            String keyDict1 = m01.getKey();
-            var valueDict1 = m01.getValue();
-//            проверить есть ли ключ keyDict1 в словаре_2 ?
-            if (dict02copy.containsKey(keyDict1)) {
-//            да, вытащить значение в словаре_2 по keyDict1 и сравнить со значением valueDict1
-                for (Map.Entry<String, Object> d02 : dict02.entrySet()) {
-                    if (d02.getKey().equalsIgnoreCase(keyDict1)) {
-//                        если да -> добавить в результ -> ключ_1 == unchanged
-                        if (d02.getValue().equals(valueDict1)) {
-//                            result.put(keyDict1, "unchanged");
-//                            result.put(keyDict1, valueDict1.toString());
-                            forModifyKey = "  " + keyDict1;
-                            result.put(forModifyKey, valueDict1.toString());
-                        } else {Set<String> set = new TreeSet<>();
-//                      нет -> добавить в результ -> ключ_1 == changed
-//                            result.put(keyDict1, "changed");
-//                            result.put(keyDict1, valueDict1.toString() + "-");
-                            forModifyKey = "- " + keyDict1;
-                            result.put(forModifyKey, valueDict1.toString());
-                            forModifyKey = "+ " + keyDict1;// d02.getKey();
-                            result.put(forModifyKey, d02.getValue().toString());
-                        }
-                        dict02copy.remove(keyDict1);
-                    }
-                }
-            } else {
-//                нет, добавить в результ -> ключ_1 == deleted
-//                result.put(keyDict1, "deleted");
-//                result.put(keyDict1, valueDict1.toString() + " -");
-                forModifyKey = "- " + keyDict1;
-                result.put(forModifyKey, valueDict1.toString());
-            }
-        }
-        if (!dict02copy.isEmpty()) {
-//        оставшиеся ключи в словаре_2 добавить в резулт, потому что они уникальные с пометкой added
-            String forModifyKey;
-            for (Map.Entry<String, Object> d02 : dict02copy.entrySet()) {
-//                result.put(d02.getKey(), "added");
-//                result.put(d02.getKey(), d02.getValue().toString() + " +");
-                forModifyKey = "+ " + d02.getKey();
-                result.put(forModifyKey, d02.getValue().toString());
-            }
-        }
-        */
+                .collect(Collectors.joining(", \n", "{\n", "\n}\n"));
 
         return result;
     }
