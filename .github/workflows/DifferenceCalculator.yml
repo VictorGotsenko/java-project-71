@@ -23,13 +23,6 @@ jobs:
       uses: gradle/actions/setup-gradle@v4
       with:
           gradle-version: 8.7
-
-    - uses: austenstone/job-summary@v2.0
-      id: job-summary
-      with:
-        create-pdf: false
-    - run: echo "${{ steps.job-summary.outputs.job-summary }}"
-
     
     - name: Build with Gradle Wrapper
       run: make build
@@ -37,8 +30,8 @@ jobs:
     - name: Checking style with Gradle
       run: make lint
 
-    #- name: Testing with Gradle
-    #  run: make test
+    - name: Testing with Gradle
+      run: make test
     
     - name: Publish code coverage
       uses: paambaati/codeclimate-action@v5.0.0
