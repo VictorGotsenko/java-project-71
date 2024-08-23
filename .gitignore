@@ -1,0 +1,26 @@
+# Ignore Gradle hiden dir
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Logs output directory
+**/logs/
+
+# Ignore IntelliJ IDEA directory  
+.idea/
+
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+#checkstyle/checkstyle.xml
+config/
