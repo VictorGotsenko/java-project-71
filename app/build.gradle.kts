@@ -1,5 +1,4 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
+import com.adarshr.gradle.testlogger.theme.ThemeType
 
 plugins {
     id("java")
@@ -30,12 +29,31 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.2")
     implementation("com.fasterxml.jackson.core:jackson-core:2.17.2")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.2")
+
     testImplementation("org.assertj:assertj-core:3.25.3")
 }
 
 tasks.test {
     useJUnitPlatform()
     finalizedBy(tasks.jacocoTestReport)
+    testlogger {
+        theme = ThemeType.MOCHA
+        showStandardStreams = true
+        showExceptions = true
+        showStackTraces = true
+        showSummary = true
+        showSimpleNames = false
+        showPassed = true
+        showSkipped = true
+        showFailed = true
+        showOnlySlow = false
+        showStandardStreams = false
+        showPassedStandardStreams = true
+        showSkippedStandardStreams = true
+        showFailedStandardStreams = true
+        logLevel = LogLevel.LIFECYCLE
+    }
 }
 
 tasks.jacocoTestReport {
