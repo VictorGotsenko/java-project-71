@@ -10,11 +10,7 @@ import java.util.Map;
 public class Parser {
 
     public static Map<String, Object> parsingFile(String rawData, String typeData) throws Exception {
-
-//        ObjectMapper mapper = new ObjectMapper(); // create once, re-use
-//        Map<String, Object> result;
-
-        switch (typeData) {
+        switch (typeData.toUpperCase()) {
             case "JSON" -> {
                 try {
                     return new ObjectMapper().readValue(rawData, new TypeReference<>() {
@@ -23,7 +19,6 @@ public class Parser {
                     throw new RuntimeException(e);
                 }
             }
-
             case "YAML" -> {
                 try {
                     return new ObjectMapper(new YAMLFactory()).readValue(rawData, new TypeReference<>() { });
@@ -35,14 +30,5 @@ public class Parser {
                 throw new RuntimeException("Unknown format: " + typeData);
             }
         }
-
-//
-//        if (typeData.equalsIgnoreCase("JSON")) {
-//            result = mapper.readValue(rawData, new TypeReference<>() {
-//            });
-//        } else {
-//            throw new RuntimeException("Unknown format");
-//        }
-//        return result;
     }
 }

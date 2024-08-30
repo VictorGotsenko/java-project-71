@@ -1,15 +1,16 @@
 // Logical module
-
 package hexlet.code;
+
+import hexlet.code.formatters.Stylish;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import static hexlet.code.Parser.parsingFile;
 
@@ -17,12 +18,13 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String outFormat) throws Exception {
         String dataFile1 = readDataFromFile(filePath1);
         String dataFile2 = readDataFromFile(filePath2);
+
         Map<String, Object> mapFromFile1 = parsingFile(dataFile1, outFormat);
         Map<String, Object> mapFromFile2 = parsingFile(dataFile2, outFormat);
 
-        return genDiff(mapFromFile1, mapFromFile2);
+        Map<String, Object> mapDiff = genDiff(mapFromFile1, mapFromFile2);
+        return Stylish.formatter(mapDiff);
     }
-
 
     public static String readDataFromFile(String pathFile) throws Exception {
         Path absolutePathFile = Paths.get(pathFile).toAbsolutePath().normalize();
@@ -33,8 +35,9 @@ public class Differ {
         return Files.readString(absolutePathFile);
     }
 // Вычисляю разницу двух словарей (структур )
-    public static String genDiff(Map<String, Object> dict01, Map<String, Object> dict02) {
-        String result = "";
+    public static Map<String, Object>  genDiff(Map<String, Object> dict01, Map<String, Object> dict02) {
+        Map<String, Object> result = new LinkedHashMap<>();
+
         if (dict01.isEmpty() && dict02.isEmpty()) {
             return result;
         }
@@ -43,28 +46,23 @@ public class Differ {
         uniqKeys.addAll(dict01.keySet());
         uniqKeys.addAll(dict02.keySet());
 //        Search diff
-        Map<String, Object> diffMap = new LinkedHashMap<>();
+//******************** этот код работает для плоских структур ****************
         uniqKeys.forEach(unqKey -> {
             if (!dict01.containsKey(unqKey)) {
-                diffMap.put("+ " + unqKey, dict02.get(unqKey));
+                result.put("  + " + unqKey, dict02.get(unqKey));
             }
             if (dict01.containsKey(unqKey) && dict02.containsKey(unqKey)) {
-                if (dict01.get(unqKey).equals(dict02.get(unqKey))) {
-                    diffMap.put("  " + unqKey, dict01.get(unqKey));
+                if (Objects.equals(dict01.get(unqKey), dict02.get(unqKey))) {
+                    result.put("    " + unqKey, dict01.get(unqKey));
                 } else {
-                    diffMap.put("- " + unqKey, dict01.get(unqKey));
-                    diffMap.put("+ " + unqKey, dict02.get(unqKey));
+                    result.put("  - " + unqKey, dict01.get(unqKey));
+                    result.put("  + " + unqKey, dict02.get(unqKey));
                 }
             }
             if (dict01.containsKey(unqKey) && !dict02.containsKey(unqKey)) {
-                diffMap.put("- " + unqKey, dict01.get(unqKey));
+                result.put("  - " + unqKey, dict01.get(unqKey));
             }
         });
-//        Convert Map -> String
-        result = diffMap.keySet().stream()
-                .map(key -> key + ": " + diffMap.get(key))
-                .collect(Collectors.joining(", \n", "{\n", "\n}\n"));
-
         return result;
     }
 }
