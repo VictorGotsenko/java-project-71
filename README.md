@@ -1,5 +1,5 @@
 ### This small app for compare difference between two files (such as JSON, YAML),the result of the work is on the screenshot below: 
-![Alt text](https://github.com/VictorGotsenko/java-project-71/blob/main/app/Img/Screenshotstep08.png)
+![Alt text](app/Img/Screenshotstep08.jpg)
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/VictorGotsenko/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VictorGotsenko/java-project-71/actions)
 ### Project status 
