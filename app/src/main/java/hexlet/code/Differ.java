@@ -1,6 +1,7 @@
 // Logical module
 package hexlet.code;
 
+import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 
 import java.nio.file.Files;
@@ -18,11 +19,22 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String outFormat) throws Exception {
         String dataFile1 = readDataFromFile(filePath1);
         String dataFile2 = readDataFromFile(filePath2);
+        String file1Extention = filePath1.substring(filePath1.lastIndexOf('.') + 1, filePath1.length());
+        String file2Extention = filePath2.substring(filePath2.lastIndexOf('.') + 1, filePath2.length());
 
-        Map<String, Object> mapFromFile1 = parsingFile(dataFile1, outFormat);
-        Map<String, Object> mapFromFile2 = parsingFile(dataFile2, outFormat);
+        Map<String, Object> mapFromFile1 = parsingFile(dataFile1, file1Extention.toUpperCase());
+        Map<String, Object> mapFromFile2 = parsingFile(dataFile2, file2Extention.toUpperCase());
 
         Map<String, Object> mapDiff = genDiff(mapFromFile1, mapFromFile2);
+
+        switch (outFormat) {
+            case "stylish" -> {
+                return Stylish.formatter(mapDiff);
+            }
+            case "plain" -> {
+                return Plain.formatter(mapDiff);
+            }
+        }
         return Stylish.formatter(mapDiff);
     }
 
