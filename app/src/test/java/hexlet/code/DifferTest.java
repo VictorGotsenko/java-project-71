@@ -58,6 +58,15 @@ public class DifferTest {
                                                 "YAML"));
     }
 
+    @Test
+    @DisplayName("Formatter plain")
+    void genDiffPlainTest() throws Exception {
+        Assertions.assertEquals(readFixture("resultComparePlain.txt"),
+                                Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
+                                                getAbsolutePath("file2NestStrct.yaml").toString(),
+                                                "plain"));
+    }
+
 
 
 }

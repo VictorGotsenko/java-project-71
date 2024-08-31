@@ -1,4 +1,4 @@
-// formatter module
+// formatter module - type Stulish
 package hexlet.code.formatters;
 
 import java.util.Map;
@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 public class Stylish {
 
-    public static String formatter(Map<String, Object> diffMap) {
+    public static String formatter(Map<String, Object> mapCompareResult) {
 
-        return diffMap.keySet().stream()
-                .map(key -> key + ": " + diffMap.get(key))
+        return mapCompareResult.keySet().stream()
+                .map(key -> key + ": " + mapCompareResult.get(key))
                 .collect(Collectors.joining("\n", "{\n", "\n}\n"));
     }
 }
