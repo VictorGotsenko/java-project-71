@@ -3,6 +3,8 @@
 ![Alt text](app/img/Screenshotstep08.jpg)
 #### An example of comparing two files using the "Plain" formatter
 ![Alt text](app/img/Screenshotstep09.png)
+#### An example of comparing two files using the "JSON" formatter
+![Alt text](app/img/Screenshotstep10.png)
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/VictorGotsenko/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VictorGotsenko/java-project-71/actions)
 ### Project status 

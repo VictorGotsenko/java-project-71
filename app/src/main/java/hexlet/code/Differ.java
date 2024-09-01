@@ -15,6 +15,11 @@ import static hexlet.code.Formatter.formattingResult;
 import static hexlet.code.Parser.parsingFile;
 
 public class Differ {
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return generate(filePath1, filePath2, "stylish");
+    }
+
     public static String generate(String filePath1, String filePath2, String outFormat) throws Exception {
         String dataFile1 = readDataFromFile(filePath1);
         String dataFile2 = readDataFromFile(filePath2);
@@ -34,22 +39,23 @@ public class Differ {
         if (Files.notExists(absolutePathFile)) {
             throw new Exception("File " + pathFile + " does not exist");
         }
-// Читаем файл
         return Files.readString(absolutePathFile);
     }
-// Вычисляю разницу двух словарей (структур )
+
+//  Вычисляю разницу двух словарей (структур )
     public static Map<String, Object>  genDiff(Map<String, Object> dict01, Map<String, Object> dict02) {
         Map<String, Object> result = new LinkedHashMap<>();
 
         if (dict01.isEmpty() && dict02.isEmpty()) {
             return result;
         }
-// Получить уникальное множество ключей из всех словарей
+
+//  Получаю уникальное множество ключей из всех словарей
         Set<String> uniqKeys = new TreeSet<>();
         uniqKeys.addAll(dict01.keySet());
         uniqKeys.addAll(dict02.keySet());
-//        Search diff
-//******************** этот код работает для плоских структур ****************
+
+//  Search diff *** этот код работает для плоских структур ***
         uniqKeys.forEach(unqKey -> {
             if (!dict01.containsKey(unqKey)) {
                 result.put("  + " + unqKey, dict02.get(unqKey));

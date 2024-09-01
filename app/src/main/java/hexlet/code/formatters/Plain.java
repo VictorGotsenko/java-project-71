@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Plain {
     public static String formatter(Map<String, Object> mapCompareResult) {
-
         StringBuilder result = new StringBuilder();
         Map<String, Object> minusKeys = new LinkedHashMap<>();
         Map<String, Object> plusKeys = new LinkedHashMap<>();
@@ -21,16 +20,20 @@ public class Plain {
         });
 
         String clrearFirsKey = "";
-        String clrearSecondKey = "";
+//        String clrearSecondKey = "";
+        boolean isKeyAlreadyTakenIntoResult = false;
 
         for (String key : mapCompareResult.keySet()) {
             clrearFirsKey = key.substring(4, key.length());
-            if (!clrearSecondKey.equals(clrearFirsKey)) {
+//            if (!clrearSecondKey.equals(clrearFirsKey)) {
+            if (!isKeyAlreadyTakenIntoResult) {
                 if (minusKeys.containsKey(clrearFirsKey) && plusKeys.containsKey(clrearFirsKey)) {
                     result.append("Property '" + clrearFirsKey + "' was updated. "
-                            + "From " + prepareString(minusKeys.get(clrearFirsKey))
-                            + " to " + prepareString(plusKeys.get(clrearFirsKey)) + "\n");
-                    clrearSecondKey = clrearFirsKey;    // во избежании повторного сравнения
+                            + "From " + convertObjToString(minusKeys.get(clrearFirsKey))
+                            + " to " + convertObjToString(plusKeys.get(clrearFirsKey)) + "\n");
+//                    clrearSecondKey = clrearFirsKey;    // во избежании повторного сравнения
+                    isKeyAlreadyTakenIntoResult = true;
+                    continue;
                 }
             }
             if (minusKeys.containsKey(clrearFirsKey) && !plusKeys.containsKey(clrearFirsKey)) {
@@ -38,14 +41,14 @@ public class Plain {
             }
             if (!minusKeys.containsKey(clrearFirsKey) && plusKeys.containsKey(clrearFirsKey)) {
                 result.append("Property '" + clrearFirsKey + "' was added with value: "
-                        + prepareString(plusKeys.get(clrearFirsKey)) + "\n");
+                        + convertObjToString(plusKeys.get(clrearFirsKey)) + "\n");
             }
+            isKeyAlreadyTakenIntoResult = false;
         }
         return result.toString();
     }
 
-    static String prepareString(Object o) {
-
+    static String convertObjToString(Object o) {
         if (null == o) {
             return "null";
         }
