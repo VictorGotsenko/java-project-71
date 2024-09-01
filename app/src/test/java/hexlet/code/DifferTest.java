@@ -1,4 +1,4 @@
-// App test  module
+// App test module
 package hexlet.code;
 
 import org.junit.jupiter.api.Assertions;
@@ -32,41 +32,36 @@ public class DifferTest {
     }
 
     @Test
-    @DisplayName("Format json")
-    void genDiffJsonTest() throws Exception {
-        Assertions.assertEquals(readFixture("resultCompare.json"),
-                                Differ.generate(getAbsolutePath("file1.json").toString(),
-                                                getAbsolutePath("file2.json").toString(),
-                                                "JSON"));
-    }
-
-    @Test
-    @DisplayName("Format nested json")
+    @DisplayName("Test compare nested json files")
     void genDiffNestJsonTest() throws Exception {
         Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
                                 Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
-                                                getAbsolutePath("file2NestStrct.json").toString(),
-                                                "JSON"));
+                                                getAbsolutePath("file2NestStrct.json").toString()));
     }
 
     @Test
-    @DisplayName("Format yaml")
+    @DisplayName("Test compare nested yaml files")
     void genDiffYamlTest() throws Exception {
         Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
                                 Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
-                                                getAbsolutePath("file2NestStrct.yaml").toString(),
-                                                "YAML"));
+                                                getAbsolutePath("file2NestStrct.yaml").toString()));
     }
 
     @Test
-    @DisplayName("Formatter plain")
-    void genDiffPlainTest() throws Exception {
+    @DisplayName("Output formatter plain")
+    void genDiffFormatPlainTest() throws Exception {
         Assertions.assertEquals(readFixture("resultComparePlain.txt"),
                                 Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
                                                 getAbsolutePath("file2NestStrct.yaml").toString(),
                                                 "plain"));
     }
 
-
-
+    @Test
+    @DisplayName("Output formatter JSON")
+    void genDiffFormatJsonTest() throws Exception {
+        Assertions.assertEquals(readFixture("resultCompareJson.txt"),
+                                Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
+                                                getAbsolutePath("file2NestStrct.yaml").toString(),
+                                                "json"));
+    }
 }
