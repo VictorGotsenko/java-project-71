@@ -19,7 +19,7 @@ public class Parser {
                     throw new RuntimeException(e);
                 }
             }
-            case "YAML" -> {
+            case "YML" -> {
                 try {
                     return new ObjectMapper(new YAMLFactory()).readValue(rawData, new TypeReference<>() { });
                 } catch (JsonProcessingException e) {
@@ -31,4 +31,5 @@ public class Parser {
             }
         }
     }
+
 }

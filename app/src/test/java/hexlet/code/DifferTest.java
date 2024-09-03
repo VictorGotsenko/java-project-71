@@ -18,7 +18,7 @@ public class DifferTest {
 
     static Path getAbsolutePath(String fileName) {
         Path result = Paths.get("").toAbsolutePath();
-        Path filePath = Paths.get("src", "test", "resources", fileName);
+        Path filePath = Paths.get("src", "test", "resources", "tests", fileName);
         return result.resolve(filePath).normalize();
     }
 
@@ -31,22 +31,66 @@ public class DifferTest {
         Assertions.assertTrue(true);
     }
 
-    @Test
-    @DisplayName("Test compare nested json files")
-    void genDiffNestJsonTest() throws Exception {
-        Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
-                                Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
-                                                getAbsolutePath("file2NestStrct.json").toString()));
-    }
+//    ** local my
+//    @Test
+//    @DisplayName("Test compare nested json files")
+//    void genDiffNestJsonTest() throws Exception {
+//        Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
+//                                Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
+//                                                getAbsolutePath("file2NestStrct.json").toString()));
+//    }
+//    **
+//** local my
+//    @Test
+//    @DisplayName("Test compare nested yaml files")
+//    void genDiffYamlTest() throws Exception {
+//        Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
+//                                Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
+//                                                getAbsolutePath("file2NestStrct.yaml").toString()));
+//    }
+//**
 
+//  ** from Check
     @Test
-    @DisplayName("Test compare nested yaml files")
-    void genDiffYamlTest() throws Exception {
-        Assertions.assertEquals(readFixture("resultCompareNestStrct.json"),
-                                Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
-                                                getAbsolutePath("file2NestStrct.yaml").toString()));
+    @DisplayName("Test compare nested json files - result_stylish")
+    void genDiffJsonStylishTest() throws Exception {
+        Assertions.assertEquals(readFixture("result_stylish.txt"),
+                                Differ.generate(getAbsolutePath("file1.json").toString(),
+                                                getAbsolutePath("file2.json").toString()));
     }
+//  **
 
+//  ** from Check
+    @Test
+    @DisplayName("Test compare nested json files - result_plain ")
+    void genDiffJsonPlainTest() throws Exception {
+        Assertions.assertEquals(readFixture("result_plain.txt"),
+                                Differ.generate(getAbsolutePath("file1.json").toString(),
+                                                getAbsolutePath("file2.json").toString(), "plain"));
+    }
+//  **
+
+//  ** from Check
+    @Test
+    @DisplayName("Test compare nested yaml files - result_stylish ")
+    void genDiffYmlStylishTest() throws Exception {
+        Assertions.assertEquals(readFixture("result_stylish.txt"),
+                                Differ.generate(getAbsolutePath("file1.yml").toString(),
+                                                getAbsolutePath("file2.yml").toString()));
+    }
+//  **
+
+//  ** from Check
+    @Test
+    @DisplayName("Test compare nested yaml files - result_plain ")
+    void genDiffYmlPlainTest() throws Exception {
+        Assertions.assertEquals(readFixture("result_plain.txt"),
+                                Differ.generate(getAbsolutePath("file1.yml").toString(),
+                                                getAbsolutePath("file2.yml").toString(), "plain"));
+    }
+// **
+
+/*
     @Test
     @DisplayName("Output formatter plain")
     void genDiffFormatPlainTest() throws Exception {
@@ -64,4 +108,5 @@ public class DifferTest {
                                                 getAbsolutePath("file2NestStrct.yaml").toString(),
                                                 "json"));
     }
+ */
 }

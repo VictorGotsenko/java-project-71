@@ -22,11 +22,18 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String outFormat) throws Exception {
         String dataFile1 = readDataFromFile(filePath1);
         String dataFile2 = readDataFromFile(filePath2);
-        String file1Extention = filePath1.substring(filePath1.lastIndexOf('.') + 1, filePath1.length());
-        String file2Extention = filePath2.substring(filePath2.lastIndexOf('.') + 1, filePath2.length());
+        String file1Extention = filePath1.substring(filePath1.lastIndexOf('.') + 1, filePath1.length()).toUpperCase();
+        String file2Extention = filePath2.substring(filePath2.lastIndexOf('.') + 1, filePath2.length()).toUpperCase();
 
-        Map<String, Object> mapFromFile1 = parsingFile(dataFile1, file1Extention.toUpperCase());
-        Map<String, Object> mapFromFile2 = parsingFile(dataFile2, file2Extention.toUpperCase());
+        if (file1Extention.equalsIgnoreCase("YAML")) {
+            file1Extention = "YML";
+        }
+        if (file2Extention.equalsIgnoreCase("YAML")) {
+            file2Extention = "YML";
+        }
+
+        Map<String, Object> mapFromFile1 = parsingFile(dataFile1, file1Extention);
+        Map<String, Object> mapFromFile2 = parsingFile(dataFile2, file2Extention);
 
         Map<String, Object> mapCompareResult = genDiff(mapFromFile1, mapFromFile2);
 
