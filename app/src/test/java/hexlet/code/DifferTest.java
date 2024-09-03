@@ -59,7 +59,7 @@ public class DifferTest {
     @Test
     @DisplayName("Output formatter JSON")
     void genDiffFormatJsonTest() throws Exception {
-        Assertions.assertEquals(readFixture("resultCompareJson.txt"),
+        Assertions.assertEquals(readFixture("resultCompareNestJson.txt"),
                                 Differ.generate(getAbsolutePath("file1NestStrct.yaml").toString(),
                                                 getAbsolutePath("file2NestStrct.yaml").toString(),
                                                 "json"));

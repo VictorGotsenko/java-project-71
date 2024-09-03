@@ -10,6 +10,6 @@ import java.util.Map;
 public class Json {
     public static String formatter(Map<String, Object> mapCompareResult) throws JsonProcessingException {
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        return objectWriter.writeValueAsString(mapCompareResult) + "\n";
+        return objectWriter.writeValueAsString(mapCompareResult);
     }
 }
