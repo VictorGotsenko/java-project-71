@@ -45,7 +45,7 @@ public class Plain {
             }
             isKeyAlreadyTakenIntoResult = false;
         }
-        return result.toString();
+        return result.deleteCharAt(result.length() - 1).toString();
     }
 
     static String convertObjToString(Object o) {
