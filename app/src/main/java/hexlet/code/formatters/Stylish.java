@@ -10,6 +10,6 @@ public class Stylish {
 
         return mapCompareResult.keySet().stream()
                 .map(key -> key + ": " + mapCompareResult.get(key))
-                .collect(Collectors.joining("\n", "{\n", "\n}\n"));
+                .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
 }
