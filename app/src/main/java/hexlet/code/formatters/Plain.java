@@ -10,12 +10,15 @@ public class Plain {
         StringBuilder result = new StringBuilder();
         Map<String, Object> minusKeys = new LinkedHashMap<>();
         Map<String, Object> plusKeys = new LinkedHashMap<>();
+        final int startPositionTextLine = 4;
         mapCompareResult.forEach((key, value) -> {
             if (key.charAt(2) == '-') {
-                minusKeys.put(key.substring(4, key.length()), mapCompareResult.get(key));
+                minusKeys.put(key.substring(startPositionTextLine, key.length()),
+                                            mapCompareResult.get(key));
             }
             if (key.charAt(2) == '+') {
-                plusKeys.put(key.substring(4, key.length()), mapCompareResult.get(key));
+                plusKeys.put(key.substring(startPositionTextLine, key.length()),
+                                           mapCompareResult.get(key));
             }
         });
 
@@ -24,7 +27,7 @@ public class Plain {
         boolean isKeyAlreadyTakenIntoResult = false;
 
         for (String key : mapCompareResult.keySet()) {
-            clrearFirsKey = key.substring(4, key.length());
+            clrearFirsKey = key.substring(startPositionTextLine, key.length());
 //            if (!clrearSecondKey.equals(clrearFirsKey)) {
             if (!isKeyAlreadyTakenIntoResult) {
                 if (minusKeys.containsKey(clrearFirsKey) && plusKeys.containsKey(clrearFirsKey)) {
