@@ -99,25 +99,25 @@ public class DifferTest {
     @Test
     @DisplayName("Test compare nested json files  json formatter")
     void genDiffJsonTest04() throws Exception {
-        Assertions.assertEquals(readFixture("result_stylish(default).txt"),
+        Assertions.assertEquals(readFixture("result_json_format.txt"),
                                 Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
                                                 getAbsolutePath("file2NestStrct.json").toString(),
                                                 "json"));
     }
 
-    //    ** test 03 json json -> plain formatter for Test2
+    //    ** test 04 json json -> plain formatter for Test2
     @Test
     @DisplayName("Test compare nested json files with json formatter")
     void genDiffJsonTest04ForTest2() throws Exception {
-        Assertions.assertEquals(Files.readString(getAbsolutePathTest2("result_stylish.txt")),
+        Assertions.assertEquals(Files.readString(getAbsolutePathTest2("result_json.txt")),
                                 Differ.generate(getAbsolutePathTest2("file1.json").toString(),
                                                 getAbsolutePathTest2("file2.json").toString(),
                                                 "json"));
     }
 
-
-
-
+/*
+ *  Block test YML files
+ */
 
     //    ** test 01 yml without formatter for test2
     @Test
@@ -152,14 +152,9 @@ public class DifferTest {
     @Test
     @DisplayName("Test compare nested yml files with json formatter")
     void genDiffYmlTest04ForTest2() throws Exception {
-        Assertions.assertEquals(Files.readString(getAbsolutePathTest2("result_stylish.txt")),
+        Assertions.assertEquals(Files.readString(getAbsolutePathTest2("result_json.txt")),
                                 Differ.generate(getAbsolutePathTest2("file1.yml").toString(),
                                                 getAbsolutePathTest2("file2.yml").toString(),
                                                 "json"));
     }
-
-
-
-
-
 }
