@@ -33,7 +33,7 @@ public class Differ {
         Map<String, Object> mapFromFile2 = parsingFile(dataFile2, file2Extention);
 
         List<Map<String, Object>> comparisonsResult = Comparison.find(mapFromFile1, mapFromFile2);
-        return formattingResult(comparisonsResult, outFormat);
+        return formattingResult(comparisonsResult, outFormat.toUpperCase());
     }
 
     static String readDataFromFile(String pathFile) throws Exception {
