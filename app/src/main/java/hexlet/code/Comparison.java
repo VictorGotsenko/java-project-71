@@ -20,7 +20,7 @@ public class Comparison {
         uniqueKeys.addAll(mapFromFile1.keySet());
         uniqueKeys.addAll(mapFromFile2.keySet());
 
-        for (String key : uniqueKeys ) {
+        for (String key : uniqueKeys) {
             Map<String, Object> mapDescribeKey = new LinkedHashMap<>();
             mapDescribeKey.put("key", key);
             if (!mapFromFile1.containsKey(key)) {
@@ -46,7 +46,7 @@ public class Comparison {
                 mapDescribeKey.put("value2", mapFromFile2.get(key));
                 result.add(mapDescribeKey);
             }
-        };
+        }
         return result;
     }
 }
