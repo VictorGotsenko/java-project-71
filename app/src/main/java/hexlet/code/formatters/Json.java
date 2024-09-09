@@ -1,4 +1,3 @@
-// formatter module - type Json
 package hexlet.code.formatters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

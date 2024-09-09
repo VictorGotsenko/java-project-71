@@ -1,4 +1,3 @@
-// formatter module - type Plain
 package hexlet.code.formatters;
 
 import java.util.Collection;
@@ -47,13 +46,9 @@ public class Plain {
         if (o instanceof String) {
             return String.format("'%s'", o);
         }
-        if (o instanceof Collection) {
-            return "[complex value]";
-        }
-        if (o instanceof Map) {
-            return "[complex value]";
-        }
-        if (o.getClass().isArray()) {
+        if ((o instanceof Collection)
+            || (o instanceof Map)
+            || (o.getClass().isArray())) {
             return "[complex value]";
         }
         return String.valueOf(o);
