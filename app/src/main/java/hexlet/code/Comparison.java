@@ -9,42 +9,42 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Comparison {
-    public static List<Map<String, Object>> find(Map<String, Object> mapFromFile1, Map<String, Object> mapFromFile2) {
+    public static List<Map<String, Object>> find(Map<String, Object> data1, Map<String, Object> data2) {
         List<Map<String, Object>> result = new ArrayList<>();
 
-        if (mapFromFile1.isEmpty() && mapFromFile2.isEmpty()) {
+        if (data1.isEmpty() && data2.isEmpty()) {
             return result;
         }
 
         Set<String> uniqueKeys = new TreeSet<>();
-        uniqueKeys.addAll(mapFromFile1.keySet());
-        uniqueKeys.addAll(mapFromFile2.keySet());
+        uniqueKeys.addAll(data1.keySet());
+        uniqueKeys.addAll(data2.keySet());
 
+        Object valueFromData1;
+        Object valueFromData2;
+        Map<String, Object> mapExplainsKey;
         for (String key : uniqueKeys) {
-            Map<String, Object> mapDescribeKey = new LinkedHashMap<>();
-            mapDescribeKey.put("key", key);
-            if (!mapFromFile1.containsKey(key)) {
-                mapDescribeKey.put("status", "ADDED");
-                mapDescribeKey.put("value", mapFromFile2.get(key));
-                result.add(mapDescribeKey);
-                continue;
-            }
-            if (mapFromFile1.containsKey(key) && !mapFromFile2.containsKey(key)) {
-                mapDescribeKey.put("status", "DELETED");
-                mapDescribeKey.put("value", mapFromFile1.get(key));
-                result.add(mapDescribeKey);
-                continue;
-            }
-
-            if (Objects.equals(mapFromFile1.get(key), mapFromFile2.get(key))) {
-                mapDescribeKey.put("status", "UNCHANGED");
-                mapDescribeKey.put("value", mapFromFile1.get(key));
-                result.add(mapDescribeKey);
+            valueFromData1 = data1.get(key);
+            valueFromData2 = data2.get(key);
+            mapExplainsKey = new LinkedHashMap<>();
+            mapExplainsKey.put("key", key);
+            if (!data1.containsKey(key)) {
+                mapExplainsKey.put("status", "ADDED");
+                mapExplainsKey.put("value", valueFromData2);
+                result.add(mapExplainsKey);
+            } else if (!data2.containsKey(key)) {
+                mapExplainsKey.put("status", "DELETED");
+                mapExplainsKey.put("value", valueFromData1);
+                result.add(mapExplainsKey);
+            } else if (Objects.equals(valueFromData1, valueFromData2)) {
+                mapExplainsKey.put("status", "UNCHANGED");
+                mapExplainsKey.put("value", valueFromData1);
+                result.add(mapExplainsKey);
             } else {
-                mapDescribeKey.put("status", "CHANGED");
-                mapDescribeKey.put("value1", mapFromFile1.get(key));
-                mapDescribeKey.put("value2", mapFromFile2.get(key));
-                result.add(mapDescribeKey);
+                mapExplainsKey.put("status", "CHANGED");
+                mapExplainsKey.put("value1", valueFromData1);
+                mapExplainsKey.put("value2", valueFromData2);
+                result.add(mapExplainsKey);
             }
         }
         return result;

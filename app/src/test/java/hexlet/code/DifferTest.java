@@ -1,6 +1,8 @@
 // App test module
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 
 public class DifferTest {
 
@@ -53,12 +57,16 @@ public class DifferTest {
     }
 
     @Test
-    @DisplayName("Test compare nested json files  json formatter")
+    @DisplayName("Test compare nested json files and json formatter by object")
     void genDiffJsonTest04() throws Exception {
-        Assertions.assertEquals(readFixture("result_json_format.txt"),
-                                Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
-                                                getAbsolutePath("file2NestStrct.json").toString(),
-                                                "json"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, Object>> fixture = objectMapper.readValue(readFixture("result_json_format.txt"),
+                                                                   new TypeReference<>() { });
+        String resultDiffGenerate = Differ.generate(getAbsolutePath("file1NestStrct.json").toString(),
+                                                    getAbsolutePath("file2NestStrct.json").toString(),
+                                                    "json");
+        List<Map<String, Object>> result = objectMapper.readValue(resultDiffGenerate, new TypeReference<>() { });
+        Assertions.assertEquals(fixture, result);
     }
 
     @Test
@@ -90,9 +98,13 @@ public class DifferTest {
     @Test
     @DisplayName("Test compare nested yml files with json formatter")
     void genDiffYmlTest04() throws Exception {
-        Assertions.assertEquals(Files.readString(getAbsolutePath("result_json_format.txt")),
-                                Differ.generate(getAbsolutePath("file1NestStrct.yml").toString(),
-                                                getAbsolutePath("file2NestStrct.yml").toString(),
-                                                "json"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, Object>> fixture = objectMapper.readValue(readFixture("result_json_format.txt"),
+                                                                   new TypeReference<>() { });
+        String resultDiffGenerate = Differ.generate(getAbsolutePath("file1NestStrct.yml").toString(),
+                                                    getAbsolutePath("file2NestStrct.yml").toString(),
+                                                    "json");
+        List<Map<String, Object>> result = objectMapper.readValue(resultDiffGenerate, new TypeReference<>() { });
+        Assertions.assertEquals(fixture, result);
     }
 }

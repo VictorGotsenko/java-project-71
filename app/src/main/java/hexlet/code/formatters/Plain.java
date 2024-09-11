@@ -7,30 +7,28 @@ import java.util.Map;
 public class Plain {
     public static String formatter(List<Map<String, Object>> compareResult) {
         StringBuilder result = new StringBuilder();
-        for (Map mapDescribeKey : compareResult) {
-            result.append(convertMap2String(mapDescribeKey));
+        for (Map mapExplainsKey : compareResult) {
+            result.append(convertMap2String(mapExplainsKey));
         }
         return result.toString().trim();
     }
 
-    private static String convertMap2String(Map<String, Object> mapDescribeKey) {
+    private static String convertMap2String(Map<String, Object> mapExplainsKey) {
         String result = "";
-        String keyStatus = (String) mapDescribeKey.get("status");
+        String keyStatus = (String) mapExplainsKey.get("status");
         switch (keyStatus) {
             case "ADDED" -> {
-                result = "Property " + "'" + mapDescribeKey.get("key") + "'"
-                        + " was added with value: " + convertObjToString(mapDescribeKey.get("value")) + "\n";
-            }
-            case "CHANGED" -> {
-                result = "Property " + "'" + mapDescribeKey.get("key") + "'" + " was updated."
-                        + " From " + convertObjToString(mapDescribeKey.get("value1"))
-                        + " to " + convertObjToString(mapDescribeKey.get("value2")) + "\n";
-            }
-            case "UNCHANGED" -> {
-                result = "";
+                result = String.format("Property '%s' was added with value: %s\n", mapExplainsKey.get("key"),
+                                                            convertObjToString(mapExplainsKey.get("value")));
             }
             case "DELETED" -> {
-                result = "Property " + "'" + mapDescribeKey.get("key") + "'" + " was removed" + "\n";
+                result = String.format("Property '%s' was removed\n", mapExplainsKey.get("key"));
+            }
+            case "CHANGED" -> {
+                result = String.format("Property '%s' was updated. From %s to %s\n", mapExplainsKey.get("key"),
+                                                             convertObjToString(mapExplainsKey.get("value1")),
+                                                             convertObjToString(mapExplainsKey.get("value2")));
+
             }
             default -> {
                 result = "";
